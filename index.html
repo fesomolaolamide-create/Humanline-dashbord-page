@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Humanline - Latest News</title>
+<style>
+/* RESET */
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+body{
+  background:#fff;
+  color:#000;
+}
+/* LAYOUT */
+.layout{
+  display:flex;
+  min-height:100vh;
+}
+/* SIDEBAR */
+.sidebar{
+  width:250px;
+  background:#fff;
+  padding:18px 14px;
+  display:flex;
+  flex-direction:column;
+  border-right:1px solid #eee;
+}
+/* LOGO */
+.logo{
+  font-weight:700;
+  font-size:17px;
+  display:flex;
+  align-items:center;
+  gap:6px;
+  padding:5px 8px 20px;
+}
+.star{
+  color:#1DB954;
+  font-size:18px;
+}
+.double{
+  color:#999;
+  font-size:13px;
+  margin-left:4px;
+}
+/* SIDEBAR MENU */
+.menu-item{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  text-decoration:none;
+  color:#555;
+  padding:11px 12px;
+  border-radius:8px;
+  font-size:14px;
+  font-weight:500;
+}
+.menu-item.active{
+  background:#1DB954;
+  color:#fff;
+}
+.menu-item .arrow{
+  margin-left:auto;
+  color:#999;
+}
+.menu-item .icon-right{
+  margin-left:auto;
+}
+/* SIDEBAR BOTTOM */
+.sidebar-bottom{
+  margin-top:auto;
+  display:flex;
+  flex-direction:column;
+  gap:2px;
+}
+.badge{
+  background:#FF3B30;
+  color:#fff;
+  font-size:11px;
+  width:18px;
+  height:18px;
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  margin-left:auto;
+}
+/* THEME TOGGLE */
+.theme-toggle{
+  display:flex;
+  background:#F1F1F1;
+  border-radius:20px;
+  padding:4px;
+  margin-top:15px;
+}
+.theme-toggle button{
+  flex:1;
+  border:none;
+  background:transparent;
+  padding:7px;
+  border-radius:20px;
+  font-size:12px;
+  cursor:pointer;
+}
+.theme-toggle button.active{
+  background:#fff;
+  font-weight:600;
+  box-shadow:0 1px 4px rgba(0,0,0,0.1);
+}
+/* MAIN */
+.main{
+  flex:1;
+  display:flex;
+  flex-direction:column;
+}
+/* TOPBAR */
+.topbar{
+  background:#fff;
+  display:flex;
+  align-items:center;
+  gap:30px;
+  padding:14px 30px;
+  border-bottom:1px solid #eee;
+}
+/* SEARCH BOX */
+.search-box{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  background:#F5F5F5;
+  padding:9px 12px;
+  border-radius:10px;
+  width:280px;
+}
+.search-box input{
+  border:none;
+  background:transparent;
+  outline:none;
+  flex:1;
+  font-size:13px;
+}
+.f-key{
+  background:#fff;
+  padding:3px 7px;
+  border-radius:6px;
+  font-size:11px;
+  color:#555;
+  border:1px solid #eee;
+}
+/* TOP LINKS */
+.top-links{
+  display:flex;
+  gap:25px;
+}
+.top-links a{
+  text-decoration:none;
+  color:#888;
+  font-size:14px;
+  font-weight:500;
+}
+.top-links a.active-link{
+  color:#111;
+  font-weight:600;
+}
+/* TOP ICONS */
+.top-icons{
+  margin-left:auto;
+  display:flex;
+  align-items:center;
+  gap:18px;
+  font-size:16px;
+}
+.top-icons img{
+  width:32px;
+  height:32px;
+  border-radius:50%;
+}
+.dot{
+  display:inline-block;
+  width:7px;
+  height:7px;
+  background:#FF3B30;
+  border-radius:50%;
+  margin-left:-8px;
+  vertical-align:top;
+}
+/* CONTENT */
+.content{
+  padding:28px 35px;
+  background:#F8F9FA;
+  flex:1;
+}
+/* PAGE HEAD */
+.page-head{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:10px;
+}
+.page-head h1{
+  font-size:19px;
+}
+.page-head p{
+  color:#999;
+  font-size:13px;
+  margin-top:3px;
+}
+/* FILTERS */
+.filters{
+  display:flex;
+  gap:10px;
+  align-items:center;
+}
+.filter-btn{
+  background:#fff;
+  border:1px solid #eee;
+  padding:9px 14px;
+  border-radius:8px;
+  font-size:13px;
+  cursor:pointer;
+}
+.date-btn{
+  display:flex;
+  gap:10px;
+  align-items:center;
+}
+.add-btn{
+  background:#111;
+  color:#fff;
+  border:none;
+  padding:10px 16px;
+  border-radius:8px;
+  font-size:13px;
+  font-weight:600;
+  cursor:pointer;
+}
+/* NEWS LIST */
+.news-list{
+  background:#fff;
+  border-radius:12px;
+  margin-top:20px;
+  overflow:hidden;
+}
+.news-item{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:22px 25px;
+  border-bottom:1px solid #F0F0F0;
+}
+.news-item h3{
+  font-size:14px;
+  font-weight:600;
+  margin-bottom:8px;
+}
+.meta{
+  display:flex;
+  align-items:center;
+  gap:7px;
+  font-size:12px;
+  color:#333;
+}
+.meta img{
+  width:20px;
+  height:20px;
+  border-radius:50%;
+}
+.meta span{
+  color:#999;
+  margin-left:4px;
+}
+/* ACTIONS */
+.actions{
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
+.status{
+  font-size:10px;
+  font-weight:700;
+  padding:5px 9px;
+  border-radius:5px;
+  letter-spacing:0.5px;
+}
+.status.published{
+  background:#E8F9EF;
+  color:#1DB954;
+}
+.status.draft{
+  background:#F1F1F1;
+  color:#999;
+}
+.actions button{
+  border:none;
+  background:transparent;
+  cursor:pointer;
+  font-size:14px;
+  color:#888;
+}
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+  .layout{flex-direction: column;}
+  .sidebar{display: none;}
+  .topbar{flex-wrap: wrap;
+  gap: 12px;
+  padding: 12px 15px;}
+  .search-box{
+    width: 100%;
+    order: 1;
+  }
+  .top-links{
+    order: 2;
+    gap: 15px;
+    overflow-x: auto;
+    white-space: nowrap;
+    padding-bottom: 5px;
+    width: 100%;
+  }
+  .top-icons{
+    margin-left: 0;
+    order: 3;
+  }
+  .content{
+    padding: 15px;
+  }
+  .page-head{
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+  .filters{
+    flex-wrap: wrap;
+    width: 100%;
+  }
+  .news-item{
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 18px 15px;
+  }
+  .actions{
+    width: 100%;
+    justify-content: flex-start;
+  }
+}
+
+@media(max-width: 480px){
+  .date-btn{
+    width: 100%;
+    justify-content: center;
+  }
+  .add-btn{
+    width: 100%;
+  }
+}
+</style>
+</head>
+<body>
+
+<!-- LAYOUT -->
+<div class="layout">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+
+    <!-- LOGO -->
+    <div class="logo"><span class="star">✦</span> Humanline <span class="double">&lt;&lt;</span></div>
+
+    <!-- SIDEBAR MENU -->
+    <a href="#" class="menu-item active"><span>▦</span> Dashboard <span class="icon-right">▦</span></a>
+    <a href="#" class="menu-item"><span>👥</span> Employees <span class="arrow">›</span></a>
+    <a href="#" class="menu-item"><span>☑</span> Checklist <span class="arrow">›</span></a>
+    <a href="#" class="menu-item"><span>🕒</span> Time Off <span class="arrow">›</span></a>
+    <a href="#" class="menu-item"><span>📅</span> Attendance <span class="arrow">›</span></a>
+    <a href="#" class="menu-item"><span>💳</span> Payroll <span class="arrow">›</span></a>
+    <a href="#" class="menu-item"><span>📈</span> Performance <span class="arrow">›</span></a>
+    <a href="#" class="menu-item"><span>🧑‍💼</span> Recruitment <span class="arrow">›</span></a>
+
+    <!-- SIDEBAR BOTTOM -->
+    <div class="sidebar-bottom">
+      <!-- HELP CENTER -->
+      <a href="#" class="menu-item"><span>ⓘ</span> Help Center <span class="badge">8</span></a>
+      <!-- SETTING -->
+      <a href="#" class="menu-item"><span>⚙</span> Setting</a>
+      <!-- THEME TOGGLE -->
+      <div class="theme-toggle">
+        <button class="active">● Light</button>
+        <button>◐ Dark</button>
+      </div>
+    </div>
+  </aside>
+  <!-- // SIDEBAR // -->
+
+  <!-- MAIN -->
+  <main class="main">
+
+    <!-- TOPBAR -->
+    <header class="topbar">
+      <!-- SEARCH BOX -->
+      <div class="search-box">
+        <span>🔍</span>
+        <input id="searchInput" type="text" placeholder="Search anything...">
+        <span class="f-key">⌘ F</span>
+      </div>
+      <!-- TOP LINKS -->
+      <nav class="top-links">
+        <a href="#">Documents</a>
+        <a href="#" class="active-link">News</a>
+        <a href="#">Payslip</a>
+        <a href="#">Report</a>
+      </nav>
+      <!-- TOP ICONS -->
+      <div class="top-icons">
+        <span>✉️ <i class="dot"></i></span>
+        <span>🧾 <i class="dot"></i></span>
+        <img src="sam.jpg.WEBP" alt="profile">
+        <span>▾</span>
+      </div>
+    </header>
+    <!-- // TOPBAR // -->
+
+    <!-- CONTENT -->
+    <section class="content">
+
+      <!-- PAGE HEAD -->
+      <div class="page-head">
+        <div>
+          <h1>Latest News</h1>
+          <p>List News</p>
+        </div>
+        <!-- FILTERS -->
+        <div class="filters">
+          <button class="filter-btn">Published ▾</button>
+          <button class="filter-btn date-btn">01 Jan 2023 - 10 Mar 2023 <span>📅</span></button>
+          <button class="add-btn">+ Add New</button>
+        </div>
+      </div>
+
+      <!-- NEWS LIST -->
+      <div id="newsList" class="news-list">
+
+        <!-- NEWS ITEM 1 -->
+        <div class="news-item" data-status="published">
+          <div>
+            <h3>Promotion Announcement</h3>
+            <div class="meta"><img src="sam3.jpg.WEBP"> Jakob Geidt <span>🕒 09 Feb 2023</span></div>
+          </div>
+          <div class="actions">
+            <span class="status published">PUBLISHED</span>
+            <button>✎</button>
+            <button>🗑</button>
+          </div>
+        </div>
+
+        <!-- NEWS ITEM 2 -->
+        <div class="news-item" data-status="published">
+          <div>
+            <h3>Security Policy</h3>
+            <div class="meta"><img src="sam2.jpg.WEBP"> Brandon Curtis <span>🕒 09 Feb 2023</span></div>
+          </div>
+          <div class="actions">
+            <span class="status published">PUBLISHED</span>
+            <button>✎</button>
+            <button>🗑</button>
+          </div>
+        </div>
+
+        <!-- NEWS ITEM 3 -->
+        <div class="news-item" data-status="published">
+          <div>
+            <h3>Use of Company Property Policy</h3>
+            <div class="meta"><img src="sam.jpg.WEBP"> Madelyn Saris <span>🕒 09 Feb 2023</span></div>
+          </div>
+          <div class="actions">
+            <span class="status published">PUBLISHED</span>
+            <button>✎</button>
+            <button>🗑</button>
+          </div>
+        </div>
+
+        <!-- NEWS ITEM 4 -->
+        <div class="news-item" data-status="draft">
+          <div>
+            <h3>Company Vehicle Policy</h3>
+            <div class="meta"><img src="sam2.jpg.WEBP"> Marilyn Saris <span>🕒 09 Feb 2023</span></div>
+          </div>
+          <div class="actions">
+            <span class="status draft">DRAFT</span>
+            <button>✎</button>
+            <button>🗑</button>
+          </div>
+        </div>
+
+      </div>
+      <!-- // NEWS LIST // -->
+
+    </section>
+    <!-- // CONTENT // -->
+
+  </main>
+  <!-- // MAIN // -->
+
+</div>
+<!-- // LAYOUT // -->
+
+</body>
+</html>
